@@ -54,6 +54,17 @@ export const constantRoutes = [
       meta: { title: '个人信息', icon: 'dashboard', affix: true }
     }]
   },
+  {
+    path: '/a',
+    component: Layout,
+    redirect: '/a/dashboard',
+    children: [{
+      path: 'dashboard3',
+      name: 'Dashboard3',
+      component: () => import('@/views/dashboard/index'),
+      meta: { title: '个人信息33', icon: 'dashboard', affix: true }
+    }]
+  }
 
   // // 外链
   // {
@@ -66,11 +77,24 @@ export const constantRoutes = [
   //     }
   //   ]
   // },
+]
+
+export const asyncRoutes = [
+  {
+    path: '/b',
+    component: Layout,
+    redirect: '/b/dashboard2',
+    children: [{
+      path: 'dashboard2',
+      name: 'Dashboard2',
+      component: () => import('@/views/dashboard/index'),
+      meta: { title: '个人信息22', icon: 'dashboard', roles: ['admin'] }
+    }]
+  },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
-
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
