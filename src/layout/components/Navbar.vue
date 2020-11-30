@@ -110,7 +110,7 @@ export default {
 
     .action-icon {
       cursor: pointer;
-      // color: $primaryColor;
+      color: $menuActiveText;
       &:not(:last-child) {
         margin-right: 6px;
       }
