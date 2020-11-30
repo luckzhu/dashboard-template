@@ -1,5 +1,5 @@
-/* eslint-disable vue/require-default-prop */
 /* 使用文档 https://github.liubing.me/lb-element-table/zh/guide/ */
+
 <template>
   <div class="lb-table">
     <el-table
@@ -8,7 +8,7 @@
       v-bind="$attrs"
       :data="dataSource"
       :span-method="merge ? mergeMethod : spanMethod"
-      :max-height="maxHeight"
+      :max-height="defaultHeight"
       border
       stripe
       v-on="$listeners"
@@ -37,10 +37,8 @@ export default {
       type: String,
       default: 'lbTable'
     },
-    maxHeight: {
-      type: Number,
-      default: window.document.body.clientHeight - 320
-    },
+    // eslint-disable-next-line vue/require-default-prop
+    maxHeight: Number,
     // eslint-disable-next-line vue/require-default-prop
     columns: Array,
     // eslint-disable-next-line vue/require-default-prop
@@ -71,6 +69,9 @@ export default {
   computed: {
     dataLength() {
       return this.dataSource.length
+    },
+    defaultHeight() {
+      return this.maxHeight || window.document.body.clientHeight - 280
     }
   },
   watch: {
