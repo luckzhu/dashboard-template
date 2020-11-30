@@ -53,17 +53,6 @@ export const constantRoutes = [
       component: () => import('@/views/dashboard/index'),
       meta: { title: '个人信息', icon: 'dashboard', affix: true }
     }]
-  },
-  {
-    path: '/a',
-    component: Layout,
-    redirect: '/a/dashboard',
-    children: [{
-      path: 'dashboard3',
-      name: 'Dashboard3',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '个人信息33', icon: 'dashboard', affix: true }
-    }]
   }
 
   // // 外链
@@ -81,14 +70,14 @@ export const constantRoutes = [
 
 export const asyncRoutes = [
   {
-    path: '/b',
+    path: '/table',
     component: Layout,
-    redirect: '/b/dashboard2',
+    redirect: '/table/list1',
     children: [{
-      path: 'dashboard2',
-      name: 'Dashboard2',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '个人信息22', icon: 'dashboard', roles: ['admin'] }
+      path: 'list1',
+      name: 'Table/list1',
+      component: () => import('@/views/Table/index'),
+      meta: { title: '普通表格', icon: 'table', roles: ['admin'] }
     }]
   },
 
