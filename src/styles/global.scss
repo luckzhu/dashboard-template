@@ -6,7 +6,9 @@
   // }
   .section {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    // flex-wrap: wrap;
+
     &>*:not(:last-child){
       margin-right: 10px;
     }

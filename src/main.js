@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'production') {
   mockXHR()
 }
 
-Vue.use(ElementUI, { size: 'small' })
+Vue.use(ElementUI, { size: 'mini' })
 
 Vue.config.productionTip = false
 
