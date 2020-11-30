@@ -5,28 +5,15 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
-      <el-dropdown class="avatar-container" trigger="click">
-        <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
+      <div class="avatar-wrapper">
+        <el-avatar size="medium" :src="avatarUrl" />
+      </div>
+      <div v-if="!isMobile" class="welcome">欢迎，{{ name }}</div>
+      <el-tooltip v-for="item in actionIcons" :key="item.class" class="action-icon" effect="dark" :content="item.content" placement="bottom">
+        <div @click="item.clickEvent">
+          <svg-icon :icon-class="item.iconClass" />
         </div>
-        <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/">
-            <el-dropdown-item>
-              Home
-            </el-dropdown-item>
-          </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
-            <el-dropdown-item>Github</el-dropdown-item>
-          </a>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a>
-          <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">Log Out</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+      </el-tooltip>
     </div>
   </div>
 </template>
@@ -41,10 +28,21 @@ export default {
     Breadcrumb,
     Hamburger
   },
+  data() {
+    return {
+      actionIcons: [
+        { iconClass: 'key', content: '修改密码', clickEvent: this.logout },
+        { iconClass: 'logout', content: '退出登录', clickEvent: this.logout }
+      ],
+      avatarUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
+    }
+  },
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'avatar',
+      'name',
+      'isMobile'
     ])
   },
   methods: {
@@ -60,6 +58,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/styles/variables.scss";
+
 .navbar {
   height: 50px;
   overflow: hidden;
@@ -85,53 +85,36 @@ export default {
   }
 
   .right-menu {
-    float: right;
+    display: flex;
+    justify-content: flex-end;
     height: 100%;
     line-height: 50px;
+    margin-right: 20px;
 
-    &:focus {
-      outline: none;
-    }
+    .avatar-wrapper {
+      margin-top: 7px;
+      position: relative;
 
-    .right-menu-item {
-      display: inline-block;
-      padding: 0 8px;
-      height: 100%;
-      font-size: 18px;
-      color: #5a5e66;
-      vertical-align: text-bottom;
-
-      &.hover-effect {
-        cursor: pointer;
-        transition: background .3s;
-
-        &:hover {
-          background: rgba(0, 0, 0, .025)
-        }
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
       }
     }
 
-    .avatar-container {
-      margin-right: 30px;
+    .welcome{
+      margin: 0 10px;
+    }
 
-      .avatar-wrapper {
-        margin-top: 5px;
-        position: relative;
-
-        .user-avatar {
-          cursor: pointer;
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
-        }
-
-        .el-icon-caret-bottom {
-          cursor: pointer;
-          position: absolute;
-          right: -20px;
-          top: 25px;
-          font-size: 12px;
-        }
+    .action-icon {
+      cursor: pointer;
+      // color: $primaryColor;
+      &:not(:last-child) {
+        margin-right: 6px;
+      }
+      .svg-icon {
+        width: 20px;
+        height: 20px;
       }
     }
   }
