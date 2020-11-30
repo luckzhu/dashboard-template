@@ -2,6 +2,7 @@
   <div>
     <div class="top-action">
       <div class="section">
+        <el-button type="primary" icon="el-icon-document-add" @click="dialogFormVisible = true">新增数据</el-button>
         <el-select v-model="value1">
           <el-option :value="null" />
         </el-select>
@@ -21,11 +22,22 @@
       </div>
     </div>
 
-    <LbTable :columns="columns" :data-source="dataSource" />
+    <lb-table :columns="columns" :data-source="dataSource" />
+
+    <ele-form-dialog
+      v-model="formData"
+      :form-desc="formDesc"
+      :visible.sync="dialogFormVisible"
+      :rules="rules"
+      title="新增数据"
+      :request-fn="handleSubmit"
+      @request-success="handleSuccess"
+    />
   </div>
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -64,7 +76,41 @@ export default {
           phone: '12344567890',
           address: '广东省农科院创新大楼231'
         }
-      ]
+      ],
+      dialogFormVisible: false,
+      rules: {
+        name: { required: true, message: '姓名必填' }
+      },
+      formData: {},
+      formDesc: {
+        name: {
+          type: 'input',
+          label: '名称',
+          required: true
+        },
+        phone: {
+          type: 'input',
+          label: '电话',
+          required: true
+        },
+        address: {
+          type: 'textarea',
+          label: '地址'
+        }
+      }
+    }
+  },
+  methods: {
+    handleSubmit(data) {
+      return new Promise((resolve) => {
+        resolve(data)
+      })
+    },
+    handleSuccess(data) {
+      this.dataSource.push(data)
+      this.dialogFormVisible = false
+      this.formData = {}
+      this.$message.success('创建成功')
     }
   }
 }

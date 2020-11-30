@@ -5,12 +5,7 @@
 </template>
 
 <script>
-import LbTable from '@/components/LbTable'
-
 export default {
-  components: {
-    LbTable
-  },
   data() {
     return {
       columns: [
