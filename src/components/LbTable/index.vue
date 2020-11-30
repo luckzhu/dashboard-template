@@ -1,6 +1,5 @@
-/* eslint-disable vue/this-in-template */
-// 使用文档 https://github.liubing.me/lb-element-table/zh/guide/
-/* eslint-disable */
+/* eslint-disable vue/require-default-prop */
+/* 使用文档 https://github.liubing.me/lb-element-table/zh/guide/ */
 <template>
   <div class="lb-table">
     <el-table
@@ -42,11 +41,11 @@ export default {
       type: Number,
       default: window.document.body.clientHeight - 320
     },
+    // eslint-disable-next-line vue/require-default-prop
     columns: Array,
+    // eslint-disable-next-line vue/require-default-prop
     dataSource: Array,
-    records: {
-      type: Number
-    },
+    // eslint-disable-next-line vue/require-default-prop
     spanMethod: Function,
     pagination: {
       type: Boolean,
@@ -60,6 +59,7 @@ export default {
       type: String,
       default: 'right'
     },
+    // eslint-disable-next-line vue/require-default-prop
     merge: Array
   },
   data() {
