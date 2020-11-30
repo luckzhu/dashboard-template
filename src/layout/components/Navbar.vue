@@ -5,10 +5,12 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
-      <div class="avatar-wrapper">
-        <el-avatar size="medium" :src="avatarUrl" />
-      </div>
-      <div v-if="!isMobile" class="welcome">欢迎，{{ name }}</div>
+      <template v-if="!isMobile">
+        <div class="avatar-wrapper">
+          <el-avatar size="medium" :src="avatarUrl" />
+        </div>
+        <div v-if="!isMobile" class="welcome">欢迎，{{ name }}</div>
+      </template>
       <el-tooltip v-for="item in actionIcons" :key="item.class" class="action-icon" effect="dark" :content="item.content" placement="bottom">
         <div @click="item.clickEvent">
           <svg-icon :icon-class="item.iconClass" />

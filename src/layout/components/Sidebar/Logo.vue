@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import logo from '@/assets/images/logo.png'
 export default {
   name: 'SidebarLogo',
   props: {
@@ -24,8 +25,8 @@ export default {
   },
   data() {
     return {
-      title: 'Vue Admin Template',
-      logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+      title: '后台管理系统',
+      logo
     }
   }
 }
@@ -67,8 +68,9 @@ export default {
       color: #fff;
       font-weight: 600;
       line-height: 50px;
-      font-size: 14px;
-      font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+      font-size: 18px;
+      letter-spacing: .1em;
+      font-family: Arial,"Microsoft YaHei","黑体","宋体",sans-serif;
       vertical-align: middle;
     }
   }
