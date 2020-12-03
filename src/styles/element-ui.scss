@@ -56,3 +56,11 @@
   display: flex;
   align-items: center;
 }
+
+.el-input.is-disabled .el-input__inner {
+  background-color: #F5F7FA;
+  border-color: #E4E7ED;
+  color: #666;
+  cursor: auto;
+  // cursor: not-allowed;
+}

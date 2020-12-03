@@ -1,13 +1,15 @@
 .top-action {
   margin-bottom: 20px;
 
-  // :not(:last-child) {
-  //   margin-bottom: 10px;
-  // }
+
   .section {
     display: flex;
     align-items: flex-start;
     // flex-wrap: wrap;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
 
     &>*:not(:last-child){
       margin-right: 10px;

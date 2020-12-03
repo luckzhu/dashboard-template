@@ -71,7 +71,7 @@ export default {
       return this.dataSource.length
     },
     defaultHeight() {
-      return this.maxHeight || window.document.body.clientHeight - 280
+      return this.maxHeight || window.document.body.clientHeight - 240
     }
   },
   watch: {

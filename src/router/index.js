@@ -92,6 +92,12 @@ export const asyncRoutes = [
         name: 'Tablelist3',
         component: () => import('@/views/Table/list3'),
         meta: { title: '表单表格', icon: 'table' }
+      },
+      {
+        path: 'list4',
+        name: 'Tablelist4',
+        component: () => import('@/views/Table/list4'),
+        meta: { title: '综合表格', icon: 'table' }
       }
     ]
   },

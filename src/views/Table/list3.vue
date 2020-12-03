@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { validPhone } from '@/utils/validate'
 
 export default {
   data() {
@@ -79,7 +80,7 @@ export default {
       ],
       dialogFormVisible: false,
       rules: {
-        name: { required: true, message: '姓名必填' }
+        phone: { validator: validPhone, trigger: 'blur' }
       },
       formData: {},
       formDesc: {
