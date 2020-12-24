@@ -72,31 +72,13 @@ export const asyncRoutes = [
   {
     path: '/table',
     component: Layout,
-    redirect: '/table/list1',
+    redirect: '/table/pro',
     meta: { title: '表格', icon: 'table' },
     children: [
       {
-        path: 'list1',
-        name: 'Tablelist1',
-        component: () => import('@/views/Table/index'),
-        meta: { title: '普通表格', icon: 'table' }
-      },
-      {
-        path: 'list2',
-        name: 'Tablelist2',
-        component: () => import('@/views/Table/list2'),
-        meta: { title: '筛选表格', icon: 'table' }
-      },
-      {
-        path: 'list3',
-        name: 'Tablelist3',
-        component: () => import('@/views/Table/list3'),
-        meta: { title: '表单表格', icon: 'table' }
-      },
-      {
-        path: 'list4',
-        name: 'Tablelist4',
-        component: () => import('@/views/Table/list4'),
+        path: 'pro',
+        name: 'ProTable',
+        component: () => import('@/views/Table/pro'),
         meta: { title: '综合表格', icon: 'table' }
       }
     ]

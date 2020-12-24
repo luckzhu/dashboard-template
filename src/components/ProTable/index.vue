@@ -2,20 +2,18 @@
   <div>
     <div class="top-action">
       <div class="section">
-        <el-button type="primary" icon="el-icon-document-add" @click="dialogFormVisible = true">新增数据</el-button>
-
         <div v-for="item in searchFiltered" :key="item.prop">
           <el-radio-group v-if="item.type === 'radio'" v-model="searchFields[item.prop]">
             <el-radio-button :label="1">男</el-radio-button>
             <el-radio-button :label="0">女</el-radio-button>
           </el-radio-group>
-          <el-cascader v-else-if="item.type === 'cascader'" v-model="searchFields[item.prop]" :props="cascaderProps" v-bind="item.attrs" />
+          <el-cascader v-else-if="item.type === 'cascader'" v-model="searchFields[item.prop]" v-bind="item.attrs" />
           <el-input v-else v-model="searchFields[item.prop]" :placeholder="`请输入${item.label}进行搜索`" />
         </div>
-
+        <el-button :loading="loading" type="primary" icon="el-icon-refresh" @click="getTableList">刷新数据</el-button>
         <div class="right">
-          <el-button :loading="loading" type="primary" icon="el-icon-refresh" @click="getTableList">刷新数据</el-button>
-          <el-button :loading="loading" type="primary" icon="el-icon-refresh" @click="xxx">打印</el-button>
+          <el-button type="primary" icon="el-icon-document-add" @click="dialogFormVisible = true">新增数据</el-button>
+          <el-button :loading="loading" type="primary" icon="el-icon-download" @click="xxx">导出</el-button>
         </div>
       </div>
     </div>
@@ -53,11 +51,15 @@
 
 <script>
 import { getList } from '@/api/table'
-let id = 0
+
 export default {
   props: {
+    // label type prop
+    // required options attrs formRule
+    // action actionType: ['view', 'update', 'export', 'delete']
     columns: {
       type: Array,
+      required: true,
       default: () => []
     }
   },
@@ -71,25 +73,8 @@ export default {
       searchFields: {},
       dataSource: [],
       dialogFormVisible: false,
-      formData: {},
-      cascaderProps: {
-        lazy: true,
-        checkStrictly: true,
-        emitPath: false,
-        lazyLoad(node, resolve) {
-          const { level } = node
-          setTimeout(() => {
-            const nodes = Array.from({ length: level + 1 })
-              .map(item => ({
-                value: ++id,
-                label: `选项${id}`,
-                leaf: level >= 2
-              }))
-              // 通过调用resolve将子节点数据返回，通知组件数据加载完成
-            resolve(nodes)
-          }, 1000)
-        }
-      }
+      formData: {}
+
     }
   },
   computed: {
@@ -184,9 +169,6 @@ export default {
       this.page = 1
       this.pageSize = val
       this.getTableList()
-    },
-    handleSelectionChange(val) {
-      this.$emit('getMultipleSelection', val)
     },
     update(row) {
       this.formData = row
