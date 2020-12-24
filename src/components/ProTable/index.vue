@@ -3,11 +3,10 @@
     <div class="top-action">
       <div class="section">
         <div v-for="item in searchFiltered" :key="item.prop">
-          <el-radio-group v-if="item.type === 'radio'" v-model="searchFields[item.prop]">
-            <el-radio-button :label="1">男</el-radio-button>
-            <el-radio-button :label="0">女</el-radio-button>
-          </el-radio-group>
-          <el-cascader v-else-if="item.type === 'cascader'" v-model="searchFields[item.prop]" v-bind="item.attrs" />
+          <el-select v-if="item.type === 'radio' || item.type === 'select'" v-model="searchFields[item.prop]" clearable :placeholder="`请选择${item.label}`">
+            <el-option v-for="option in item.options" :key="option.value" :value="option.value" :label="option.text" />
+          </el-select>
+          <el-cascader v-else-if="item.type === 'cascader'" v-model="searchFields[item.prop]" :placeholder="`请选择${item.label}`" v-bind="item.attrs" />
           <el-input v-else v-model="searchFields[item.prop]" :placeholder="`请输入${item.label}进行搜索`" />
         </div>
         <el-button :loading="loading" type="primary" icon="el-icon-refresh" @click="getTableList">刷新数据</el-button>
@@ -65,7 +64,11 @@ export default {
       type: Array,
       required: true,
       default: () => []
-    }
+    },
+    // eslint-disable-next-line vue/require-default-prop
+    deleteFn: Function,
+    // eslint-disable-next-line vue/require-default-prop
+    exportRowFn: Function
   },
   data() {
     return {
@@ -95,12 +98,14 @@ export default {
         if (type === 'selection') {
           return item
         }
-        if (type === 'radio') {
+        if (type === 'radio' || type === 'select') {
           // eslint-disable-next-line no-unused-vars
           return { ...rest, render: (h, scope) => {
-            return <el-radio-group vModel={scope.row[item.prop]}>
-              {item.options.map(option => { return <el-radio label={option.value}>{option.text}</el-radio> })}
-            </el-radio-group>
+            const option = item.options.find(ele => ele.value === scope.row[item.prop])
+            return <span>{option.text}</span>
+            // <el-radio-group vModel={scope.row[item.prop]}>
+            //   {item.options.map(option => { return <el-radio label={option.value}>{option.text}</el-radio> })}
+            // </el-radio-group>
           } }
         }
         if (type === 'action') {
@@ -184,10 +189,14 @@ export default {
       this.formDisabled = true
       this.dialogFormVisible = true
     },
-    delete({ id }) {
+    async delete({ id }) {
+      if (!this.deleteFn) return
+      await this.deleteFn({ id })
       this.$message(`删除了id：${id}`)
     },
-    exportRow({ id }) {
+    async exportRow({ id }) {
+      if (!this.exportRowFn) return
+      await this.exportRowFn({ id })
       this.$message(`导出了id：${id}`)
     },
     handleSubmit(data) {
