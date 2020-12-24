@@ -13,7 +13,7 @@
         <el-button :loading="loading" type="primary" icon="el-icon-refresh" @click="getTableList">刷新数据</el-button>
         <div class="right">
           <el-button type="primary" icon="el-icon-document-add" @click="dialogFormVisible = true">新增数据</el-button>
-          <el-button :loading="loading" type="primary" icon="el-icon-download" @click="xxx">导出</el-button>
+          <Export2Excel table-id="lbTable" />
         </div>
       </div>
     </div>
@@ -51,8 +51,12 @@
 
 <script>
 import { getList } from '@/api/table'
+import Export2Excel from '@/components/Export2Excel'
 
 export default {
+  components: {
+    Export2Excel
+  },
   props: {
     // label type prop
     // required options attrs formRule
@@ -73,8 +77,8 @@ export default {
       searchFields: {},
       dataSource: [],
       dialogFormVisible: false,
-      formData: {}
-
+      formData: {},
+      tableId: 'forExport'
     }
   },
   computed: {
@@ -111,7 +115,7 @@ export default {
               export: <el-link type='success' onClick={() => this.exportRow(row)}>导出</el-link>
             }
             return <div> { actionType.map(action => inbuiltAction[action]) } </div>
-          }, ...rest }
+          }, ...rest, prop: 'action' }
         }
         return rest
       })

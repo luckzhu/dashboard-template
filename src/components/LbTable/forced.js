@@ -29,7 +29,8 @@ export default {
       )
     },
     sortable: false,
-    resizable: false
+    resizable: false,
+    className: 'selection'
   },
   index: {
     renderHeader: (h, scope) => {
@@ -47,7 +48,8 @@ export default {
 
       return <div>{i}</div>
     },
-    sortable: false
+    sortable: false,
+    className: 'index'
   },
   expand: {
     renderHeader: (h, scope) => {

@@ -20,7 +20,7 @@
     :show-overflow-tooltip="column.showOverflowTooltip || false"
     :align="column.align || align || 'center'"
     :header-align="column.headerAlign || headerAlign || column.align || align || 'center'"
-    :class-name="column.className"
+    :class-name="column.className || column.prop || column.type"
     :label-class-name="column.labelClassName"
     :selectable="column.selectable"
     :reserve-selection="column.reserveSelection || false"
